@@ -29,5 +29,5 @@ def read_tables(database_path):
     conn.close()
 
 if __name__ == "__main__":
-    database_path = 'predictions.db'  # Update with the correct path if needed
+    database_path = 'stock_predictions_rnn_v3/predictions/predictions.db'  # Update with the correct path if needed
     read_tables(database_path)
