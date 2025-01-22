@@ -1,5 +1,4 @@
 
-# .github/workflows/read_db.yml
 name: Read Database
 
 on:
@@ -10,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout Sqlite-visuals repository
+      uses: actions/checkout@v2
+
+    - name: Checkout stock_predictions_rnn_v3 repository
       uses: actions/checkout@v2
       with:
         repository: chiragpalan/stock_predictions_rnn_v3
@@ -28,4 +30,12 @@ jobs:
 
     - name: Run script
       run: |
-        python sql_view.py
+        python stock_predictions_rnn_v3/predictions/read_db.py
+
+    - name: Commit output file
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add output.md
+        git commit -m 'Add output from database'
+        git push
