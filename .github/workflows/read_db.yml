@@ -26,16 +26,20 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas tabulate
+        pip install pandas
 
     - name: Run script
       run: |
         python sql_view.py
 
-    - name: Commit output file
+    - name: Append output to README
+      run: |
+        cat output.md >> README.md
+
+    - name: Commit changes
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
-        git add output.md
-        git commit -m 'Add output from database'
+        git add README.md
+        git commit -m 'Update README with database output'
         git push
