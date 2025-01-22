@@ -1,0 +1,41 @@
+
+name: Read Database
+
+on:
+  workflow_dispatch:
+
+jobs:
+  read-db:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Sqlite-visuals repository
+      uses: actions/checkout@v2
+
+    - name: Checkout stock_predictions_rnn_v3 repository
+      uses: actions/checkout@v2
+      with:
+        repository: chiragpalan/stock_predictions_rnn_v3
+        path: stock_predictions_rnn_v3
+
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas
+
+    - name: Run script
+      run: |
+        python stock_predictions_rnn_v3/predictions/read_db.py
+
+    - name: Commit output file
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add output.md
+        git commit -m 'Add output from database'
+        git push
