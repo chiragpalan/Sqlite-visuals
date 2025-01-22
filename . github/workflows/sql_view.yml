@@ -1,0 +1,31 @@
+
+# .github/workflows/read_db.yml
+name: Read Database
+
+on:
+  workflow_dispatch:
+
+jobs:
+  read-db:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        repository: chiragpalan/stock_predictions_rnn_v3
+        path: stock_predictions_rnn_v3
+
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas
+
+    - name: Run script
+      run: |
+        python stock_predictions_rnn_v3/predictions/read_db.py
