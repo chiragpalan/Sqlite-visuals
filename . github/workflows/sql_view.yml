@@ -28,4 +28,4 @@ jobs:
 
     - name: Run script
       run: |
-        python stock_predictions_rnn_v3/predictions/read_db.py
+        python sql_view.py
